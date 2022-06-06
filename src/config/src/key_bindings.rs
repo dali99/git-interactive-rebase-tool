@@ -24,6 +24,11 @@ pub struct KeyBindings {
 	pub action_reword: Vec<String>,
 	/// Key bindings for the squash action.
 	pub action_squash: Vec<String>,
+	/// git-revise
+	/// Key bindings for the Index action.
+	pub action_index: Vec<String>,
+	/// Key bindings for the Cut action.
+	pub action_cut: Vec<String>,
 	/// Key bindings for negative confirmation.
 	pub confirm_no: Vec<String>,
 	/// Key bindings for positive confirmation.
@@ -121,6 +126,8 @@ impl KeyBindings {
 			action_pick: get_input(git_config, "interactive-rebase-tool.inputActionPick", "p")?,
 			action_reword: get_input(git_config, "interactive-rebase-tool.inputActionReword", "r")?,
 			action_squash: get_input(git_config, "interactive-rebase-tool.inputActionSquash", "s")?,
+			action_index: get_input(git_config, "interactive-rebase-tool.inputActionIndex", "i")?,
+			action_cut: get_input(git_config, "interactive-rebase-tool.inputActionCut", "x")?,
 			confirm_no,
 			confirm_yes,
 			edit: get_input(git_config, "interactive-rebase-tool.inputEdit", "E")?,

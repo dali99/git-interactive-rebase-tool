@@ -27,6 +27,9 @@ pub(crate) struct AppKeyBindings {
 	pub(crate) action_reword: Vec<Event>,
 	/// Key bindings for the squash action.
 	pub(crate) action_squash: Vec<Event>,
+	/// git-revise
+	pub(crate) action_index: Vec<Event>,
+	pub(crate) action_cut: Vec<Event>,
 	/// Key bindings for positive confirmation.
 	pub(crate) confirm_yes: Vec<Event>,
 	/// Key bindings for editing.
@@ -85,6 +88,9 @@ impl CustomKeybinding for AppKeyBindings {
 			action_pick: map_keybindings(&key_bindings.action_pick),
 			action_reword: map_keybindings(&key_bindings.action_reword),
 			action_squash: map_keybindings(&key_bindings.action_squash),
+			// git-revise
+			action_index: map_keybindings(&key_bindings.action_index),
+			action_cut: map_keybindings(&key_bindings.action_cut),
 			edit: map_keybindings(&key_bindings.edit),
 			force_abort: map_keybindings(&key_bindings.force_abort),
 			force_rebase: map_keybindings(&key_bindings.force_rebase),

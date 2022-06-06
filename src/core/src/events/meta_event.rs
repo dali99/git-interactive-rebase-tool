@@ -24,6 +24,9 @@ pub(crate) enum MetaEvent {
 	ActionReword,
 	/// The squash action meta event.
 	ActionSquash,
+	/// git-revise
+	ActionIndex,
+	ActionCut,
 	/// The move cursor down meta event.
 	MoveCursorDown,
 	/// The move cursor to end meta event.

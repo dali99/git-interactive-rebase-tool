@@ -395,6 +395,8 @@ impl List {
 			e if key_bindings.custom.action_pick.contains(&e) => Event::from(MetaEvent::ActionPick),
 			e if key_bindings.custom.action_reword.contains(&e) => Event::from(MetaEvent::ActionReword),
 			e if key_bindings.custom.action_squash.contains(&e) => Event::from(MetaEvent::ActionSquash),
+			e if key_bindings.custom.action_index.contains(&e) => Event::from(MetaEvent::ActionIndex),
+			e if key_bindings.custom.action_cut.contains(&e) => Event::from(MetaEvent::ActionCut),
 			e if key_bindings.custom.edit.contains(&e) => Event::from(MetaEvent::Edit),
 			e if key_bindings.custom.force_abort.contains(&e) => Event::from(MetaEvent::ForceAbort),
 			e if key_bindings.custom.force_rebase.contains(&e) => Event::from(MetaEvent::ForceRebase),
@@ -457,6 +459,10 @@ impl List {
 					MetaEvent::ActionPick => self.set_selected_line_action(rebase_todo, Action::Pick),
 					MetaEvent::ActionReword => self.set_selected_line_action(rebase_todo, Action::Reword),
 					MetaEvent::ActionSquash => self.set_selected_line_action(rebase_todo, Action::Squash),
+					// git-revise
+					MetaEvent::ActionIndex => self.set_selected_line_action(rebase_todo, Action::Index),
+					MetaEvent::ActionCut => self.set_selected_line_action(rebase_todo, Action::Cut),
+
 					MetaEvent::Delete => self.delete(rebase_todo),
 					MetaEvent::ForceAbort => self.force_abort(&mut results, rebase_todo),
 					MetaEvent::ForceRebase => self.force_rebase(&mut results),

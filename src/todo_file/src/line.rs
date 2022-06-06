@@ -205,7 +205,10 @@ impl Line {
 			| Action::Noop
 			| Action::Pick
 			| Action::Reword
-			| Action::Squash => false,
+			| Action::Squash
+			// git-revise
+			| Action::Index
+			| Action::Cut => false,
 		}
 	}
 
@@ -214,7 +217,15 @@ impl Line {
 	#[inline]
 	pub fn to_text(&self) -> String {
 		match self.action {
-			Action::Drop | Action::Edit | Action::Fixup | Action::Pick | Action::Reword | Action::Squash => {
+			Action::Drop
+			| Action::Edit
+			| Action::Fixup
+			| Action::Pick
+			| Action::Reword
+			| Action::Squash
+			// git-revise
+			| Action::Index
+			| Action::Cut => {
 				format!("{} {} {}", self.action.as_string(), self.hash, self.content)
 			},
 			Action::Exec | Action::Label | Action::Reset | Action::Merge => {

@@ -198,6 +198,9 @@ const fn get_action_color(action: Action) -> DisplayColor {
 		Action::Merge => DisplayColor::ActionMerge,
 		// this is technically impossible, since noops should never be rendered
 		Action::Noop => DisplayColor::Normal,
+		// git-revise
+		Action::Index => DisplayColor::ActionReset,
+		Action::Cut => DisplayColor::ActionEdit,
 	}
 }
 
@@ -249,7 +252,15 @@ pub(super) fn get_todo_line_segments(
 	));
 
 	match *action {
-		Action::Drop | Action::Edit | Action::Fixup | Action::Pick | Action::Reword | Action::Squash => {
+		Action::Drop
+		| Action::Edit
+		| Action::Fixup
+		| Action::Pick
+		| Action::Reword
+		| Action::Squash
+		// git-revise
+		| Action::Index
+		| Action::Cut => {
 			let action_width = if is_full_width { 8 } else { 3 };
 			let max_index = cmp::min(line.get_hash().len(), action_width);
 			segments.push(LineSegment::new(

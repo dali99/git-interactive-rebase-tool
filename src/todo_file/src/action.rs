@@ -28,6 +28,11 @@ pub enum Action {
 	Reset,
 	/// A merge action.
 	Merge,
+	/// Support for git-revise
+	/// Leave changes staged in index (must be last lines)
+	Index,
+	/// Select hunks from commit
+	Cut,
 }
 
 impl Action {
@@ -48,6 +53,9 @@ impl Action {
 			Self::Reset => "reset",
 			Self::Reword => "reword",
 			Self::Squash => "squash",
+			// git-revise
+			Self::Index => "index",
+			Self::Cut => "cut",
 		})
 	}
 
@@ -68,6 +76,9 @@ impl Action {
 			Self::Reset => "t",
 			Self::Reword => "r",
 			Self::Squash => "s",
+			// git-revise has no short forms
+			Self::Index => "index",
+			Self::Cut => "cut",
 		})
 	}
 
@@ -77,7 +88,14 @@ impl Action {
 	pub const fn is_static(self) -> bool {
 		match self {
 			Self::Break | Self::Exec | Self::Noop | Self::Reset | Self::Label | Self::Merge => true,
-			Self::Drop | Self::Edit | Self::Fixup | Self::Pick | Self::Reword | Self::Squash => false,
+			Self::Drop
+			| Self::Edit
+			| Self::Fixup
+			| Self::Pick
+			| Self::Reword
+			| Self::Squash
+			| Self::Index
+			| Self::Cut => false,
 		}
 	}
 }
@@ -100,6 +118,9 @@ impl TryFrom<&str> for Action {
 			"label" | "l" => Ok(Self::Label),
 			"reset" | "t" => Ok(Self::Reset),
 			"merge" | "m" => Ok(Self::Merge),
+			// git-revise
+			"index" => Ok(Self::Index),
+			"cut" => Ok(Self::Cut),
 			_ => Err(anyhow!("Invalid action: {}", s)),
 		}
 	}
